@@ -71,7 +71,7 @@ def computeMJD(MET, returnFraction=True):
 ##########################################################################################
 
 def plotLightCurve(lightCurve, logCenter=False, MET=None, useMJD=False, ylim=None, triggerMET=None, triggerMJD=None, ylog=False, xlog=False, ymin=None, \
-    ymax=None, xmin=None, xmax=None, removeTicks=1, savefig=False, showPlot=False, plotTS=False, plotIndex=False, extension='.png'):
+    ymax=None, xmin=None, xmax=None, removeTicks=1, savefig=False, showPlot=True, plotTS=False, plotIndex=False, extension='.png'):
     """Plot data from the light curve repository
 
     Arguments:
@@ -295,7 +295,10 @@ def plotLightCurve(lightCurve, logCenter=False, MET=None, useMJD=False, ylim=Non
         ax.set_xlabel('Time (sec)')
 
     # Setup the y-axis label
-    ax.set_ylabel(r'Photons cm$^{-2}$ s$^{-1}$')
+    if lightCurve.flux_type == 'photon':  # Photon flux
+        ax.set_ylabel(r'Photons cm$^{-2}$ s$^{-1}$')
+    elif lightCurve.flux_type == 'energy':  # Energy flux
+        ax.set_ylabel(r'erg cm$^{-2}$ s$^{-1}$')
 
     # Set the plot title
     ax.set_title(source, fontsize=12)
